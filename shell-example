@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#num=20
+
+read num
+
+factorial(){
+	a=0
+	result=1
+	while [ "$a" -lt "$1" ]
+	do
+		a=`expr $a + 1`
+		result=`expr $result \* $a`
+		echo $result
+	done
+	echo "$1! is $result"
+}
+
+factorial $num
