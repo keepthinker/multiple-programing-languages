@@ -13,7 +13,7 @@ factorial(){
 		result=`expr $result \* $a`
 		echo $result
 	done
-	echo "$1! is $result"
+	echo "$1! equals $result"
 }
 
 factorial $num
