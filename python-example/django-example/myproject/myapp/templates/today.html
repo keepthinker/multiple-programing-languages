@@ -1,0 +1,15 @@
+{% extends "main_template.html"%}
+{%block title%}today{%endblock%}
+{%block content%}
+	Hi !<br/>
+	Today is {{today|lower}}
+	{%if today.year < 0%}
+	Today is B.C.
+	{%elif today.year >= 0%}
+	Today is A.D
+	{%endif%}
+	<br/>
+	{%for day in daysOfWeek%}{{day}} {%endfor%}
+	<br/>
+	use template
+{%endblock%}
