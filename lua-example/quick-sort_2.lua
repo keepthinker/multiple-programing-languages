@@ -11,7 +11,7 @@ function quick_sort(a, low, high)
 		return
 	end
 	
-    local i = low
+    	local i = low
 	local pivot = a[high]
 	local j = low - 1
 	
