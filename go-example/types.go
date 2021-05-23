@@ -16,7 +16,4 @@ func main() {
 
 	result = float32(a) / float32(b)
 	fmt.Println(result)
-
-	
-  
 }

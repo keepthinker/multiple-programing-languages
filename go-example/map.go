@@ -23,7 +23,7 @@ func main() {
 	weight, ok := animalWeightMap[animal]
 
 	if ok {
-		fmt.Println("animal:", animal, "weight:", weight);	
+		fmt.Println("animal:", animal, "weight:", weight);
 	}
-	
+
 }
