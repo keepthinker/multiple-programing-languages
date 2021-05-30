@@ -34,21 +34,6 @@ func main() {
 	}
 	fmt.Println("goto end")
 
-	i := 0
-	for {
-		if i > 10 {
-			break
-		}
-		i++
-	}
-	fmt.Println("end for i=", i)
-
-	switch i {
-	case 11 : fmt.Println("case 11") 
-	fallthrough
-	case 12 : fmt.Println("case 11 fallthrough")
-	case 13 : fmt.Println("case 12")
-	}
 }
 
 func multiply(a int, b int) int {

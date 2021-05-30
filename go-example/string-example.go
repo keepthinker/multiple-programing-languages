@@ -17,4 +17,8 @@ func main() {
 	fmt.Printf("length of greeting: %d\n", len(greeting))
 	fmt.Printf(strings.Join([]string{greeting, " join word"}, "|"))
 	fmt.Printf("\n")
+
+	desc := `hello world! good
+	job`
+	fmt.Println(desc)
 }

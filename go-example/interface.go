@@ -19,6 +19,14 @@ func (circle Circle) area() float64 {
 	return 3.141592654 * float64(circle.radius * circle.radius)
 }
 
+func sumAndProduct(a int, b int) (int, int) {
+	return a + b, a * b
+}
+
+func increment(val *int) {
+	*val++	
+}
+
 func main() {
 	var shape Shape = Rectangle{width:4, height:5}
 	fmt.Println(shape.area())
@@ -37,4 +45,10 @@ func main() {
 	(*circle2).radius = 20
 	shape = *circle2
 	fmt.Println("circle", shape.area())
+
+	a, b := sumAndProduct(2, 3)
+	fmt.Printf("a = %d, b = %d\n", a, b)
+
+	increment(&a);
+	fmt.Println("incremented value a:", a)
 }
