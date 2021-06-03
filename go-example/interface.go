@@ -19,6 +19,10 @@ func (circle Circle) area() float64 {
 	return 3.141592654 * float64(circle.radius * circle.radius)
 }
 
+func (circle *Circle) setRadius(r int) {
+	circle.radius = r
+}
+
 func sumAndProduct(a int, b int) (int, int) {
 	return a + b, a * b
 }
@@ -45,6 +49,10 @@ func main() {
 	(*circle2).radius = 20
 	shape = *circle2
 	fmt.Println("circle", shape.area())
+
+	circle3 := Circle{2}
+	circle3.setRadius(10)
+	fmt.Println("circle3 area:", circle3.area())
 
 	a, b := sumAndProduct(2, 3)
 	fmt.Printf("a = %d, b = %d\n", a, b)

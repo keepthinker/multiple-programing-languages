@@ -3,6 +3,8 @@ package main
 import "fmt"
 import "errors"
 
+type Color int
+
 func main() {
 	var number int8 =  11
 	number = 10
@@ -53,4 +55,7 @@ func main() {
 		elem6 = iota
 		)
 	fmt.Println("elem1=", elem1, "elem2=", elem2, "elem3=", elem3, "elem4=", elem4, "elem5", elem5, "elem6", elem6)
+
+	var h Color = 100
+	fmt.Println("color:", h)
 }
