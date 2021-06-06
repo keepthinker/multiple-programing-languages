@@ -29,6 +29,9 @@ func (a Animal) speak() {
 	fmt.Printf("%s speak: popo, weight: %d\n", a.name, a.weight)
 }
 
+func (a Animal) run() {
+	fmt.Printf("%s is running\n", a.name)
+}
 
 func main() {
 
@@ -38,4 +41,6 @@ func main() {
 	animal := Animal{"bird", 3}
 	animal.speak()
 
+	monkey.run()
+	animal.run()
 }

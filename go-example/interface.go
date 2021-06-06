@@ -1,9 +1,15 @@
 package main
 
-import "fmt"
+import ("fmt"
+	"strconv"
+)
+
+const Pi float64 = 3.141592654
 
 type Shape interface {
 	area() float64
+	perimeter() float64
+	addArea(area int) float64
 }
 type Rectangle struct {
 	width int
@@ -12,11 +18,32 @@ type Rectangle struct {
 type Circle struct {
 	radius int
 }
-func (rectangle Rectangle) area() float64 {
-	return float64(rectangle.width * rectangle.height)
+func (r Rectangle) area() float64 {
+	return float64(r.width * r.height)
 }
-func (circle Circle) area() float64 {
-	return 3.141592654 * float64(circle.radius * circle.radius)
+
+func (r Rectangle) perimeter() float64 {
+	return float64(r.width * r.height)
+}
+
+func (r Rectangle) addArea(area int) float64 {
+	return float64(area) + r.area()
+}
+
+func (r Rectangle) String() string {
+	return "regtangle, width: " + strconv.Itoa(r.width) + ", height: " + strconv.Itoa(r.height)
+}
+
+func (c Circle) area() float64 {
+	return Pi * float64(c.radius * c.radius)
+}
+
+func (c Circle) perimeter() float64 {
+	return float64(2 * c.radius) * Pi
+}
+
+func (c Circle) addArea(area int) float64 {
+	return float64(area) + c.area()
 }
 
 func (circle *Circle) setRadius(r int) {
@@ -54,9 +81,13 @@ func main() {
 	circle3.setRadius(10)
 	fmt.Println("circle3 area:", circle3.area())
 
+	fmt.Printf("circle3 add area %d, circle3.area: %f\n", 10, circle3.addArea(10))
+
 	a, b := sumAndProduct(2, 3)
 	fmt.Printf("a = %d, b = %d\n", a, b)
 
 	increment(&a);
 	fmt.Println("incremented value a:", a)
+	rec := Rectangle{10, 20}
+	fmt.Println("rec:", rec)
 }
