@@ -75,15 +75,18 @@ func main() {
 	c2 := make(chan int)
 
 	go func() {
+		F:
 		for {
 			select {
 				case x := <-c1:
 				fmt.Printf("c1 value:%d\n", x)
 				case <-time.After(time.Second * 3):
-				fmt.Println("timeout")
+				fmt.Println("timeout after 3 s")
 				c2 <- 0
+				break F
 			}
 		}
+		fmt.Println("break from go routine")
 	}()
 
 	go func() {
@@ -94,4 +97,28 @@ func main() {
 	<-c2
 
 	fmt.Println("finished")
+
+	c1 = make(chan int, 5)
+	go func() {
+		for {
+			c1 <- int(time.Now().Unix())
+			time.Sleep(time.Second * 1)
+		}
+	}()
+	time.Sleep(time.Second * 5)
+	F:
+	for {
+		select {
+			case x := <- c1:
+			fmt.Println("get value from c1", x)
+			// if channels above are blocked, default case is executed
+			default:
+			fmt.Println("default")
+			break F
+		}
+	}
+	close(c1)
+	a, ok := <- c1
+	fmt.Println(ok, a)
+	
 }
