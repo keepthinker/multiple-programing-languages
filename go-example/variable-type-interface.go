@@ -2,17 +2,17 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"reflect"
+	"strconv"
 )
 
 type Element interface{}
 
-type List []Element;
+type List []Element
 
 type Person struct {
 	name string
-	age int
+	age  int
 }
 
 func (p Person) String() string {
@@ -44,11 +44,11 @@ func main() {
 
 	for i, elem := range list {
 		switch value := elem.(type) {
-		case string :
+		case string:
 			fmt.Printf("index: %d, value: %s\n", i, value)
-		case int :
+		case int:
 			fmt.Printf("index: %d, value: %d\n", i, value)
-		case Person :
+		case Person:
 			fmt.Printf("index: %d, value: %s\n", i, value)
 		case float64:
 			fmt.Printf("index: %d, value: %f\n", i, value)
