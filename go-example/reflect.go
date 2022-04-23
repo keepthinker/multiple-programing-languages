@@ -278,7 +278,7 @@ func GetFieldMap(param interface{}) map[string]interface{} {
 		field := elemOfI.Field(i)
 		resutMap[elemType.Field(i).Name] = field.Interface()
 	}
-	// 	return resutMap
+	return resutMap
 
 }
 
