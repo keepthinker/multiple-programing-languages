@@ -258,3 +258,93 @@ func formatAtom(v reflect.Value) string {
 		return v.Type().String() + " value"
 	}
 }
+
+
+func GetFieldMap(param interface{}) map[string]interface{} {
+
+	resutMap := make(map[string]interface{})
+	paramValue := reflect.ValueOf(param)
+
+	var elemOfI reflect.Value
+	if paramValue.Kind() == reflect.Ptr {
+		elemOfI = paramValue.Elem()
+	} else if paramValue.Kind() == reflect.Struct {
+		elemOfI = paramValue
+	} else {
+		panic("not supported type")
+	}
+	elemType := elemOfI.Type()
+	for i := 0; i < elemOfI.NumField(); i++ {
+		field := elemOfI.Field(i)
+		resutMap[elemType.Field(i).Name] = field.Interface()
+	}
+	// 	return resutMap
+
+}
+
+func SetFields(param interface{}) {
+	paramElem := reflect.ValueOf(param).Elem()
+	paramType := paramElem.Type()
+	for i := 0; i < paramElem.NumField(); i++ {
+		if paramType.Field(i).Type.Kind() == reflect.String {
+			paramElem.Field(i).SetString("default")
+		} else if paramType.Field(i).Type.Kind() == reflect.Int32 ||
+			paramType.Field(i).Type.Kind() == reflect.Int64 ||
+			paramType.Field(i).Type.Kind() == reflect.Int {
+			paramElem.Field(i).SetInt(-1)
+		}
+	}
+}
+
+func InvokeHelloFunc(param interface{}) {
+	paramElem := reflect.ValueOf(param)
+	m := paramElem.MethodByName("Hello")
+	m.Call(nil)
+
+	ty := paramElem.Type()
+	m1, ok := ty.MethodByName("Hello")
+	if ok {
+		m1.Func.Call([]reflect.Value{reflect.ValueOf(param)})
+	} else {
+		fmt.Println("InvokeHelloFunc not found")
+	}
+}
+
+
+func ConvertPrimitiveSliceToInterfaceSlice(originSli interface{}) []interface{} {
+	paramElem := reflect.ValueOf(originSli).Elem()
+	if paramElem.Type().Kind() == reflect.Slice {
+		lenOfSlice := paramElem.Len()
+		resultSlice := make([]interface{}, lenOfSlice)
+		for i := 0; i < lenOfSlice; i++ {
+			resultSlice[i] = paramElem.Index(i).Interface()
+		}
+		return resultSlice
+	}
+	return nil
+}
+
+func ConvertPrimitiveSliceToIStringSlice(originSli interface{}) []string {
+	if r, ok := originSli.(*[]string); ok {
+		return *r
+	}
+	paramElem := reflect.ValueOf(originSli).Elem()
+	if paramElem.Type().Kind() == reflect.Slice {
+		lenOfSlice := paramElem.Len()
+		resultSlice := make([]string, lenOfSlice)
+		for i := 0; i < lenOfSlice; i++ {
+			// resultSlice[i] = fmt.Sprintf("%v", paramElem.Index(i).Interface())
+			el := paramElem.Index(i)
+			var str string
+			switch el.Kind() {
+			case reflect.Int, reflect.Int16, reflect.Int32, reflect.Int64:
+				str = strconv.FormatInt(el.Int(), 10)
+			default:
+				resultSlice[i] = fmt.Sprintf("%v", paramElem.Index(i).Interface())
+			}
+			resultSlice[i] = str
+		}
+		return resultSlice
+	}
+	return nil
+}
